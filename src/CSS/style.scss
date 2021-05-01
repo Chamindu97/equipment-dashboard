@@ -1,0 +1,157 @@
+@import "./Utilities/utils";
+
+$theme-primary: #3d6cb9;
+$theme-secondary: #00d1ff;
+$theme-ternary: #00fff0;
+$theme-white: #fafaf6;
+
+$fs-regular: 1rem;
+$fs-big: 3rem;
+$fs-count: 3rem;
+$fs-medium: 1.5rem;
+
+// common style
+body {
+    background: $theme-white;
+}
+
+header {
+    background: $theme-primary;
+    text-align: center;
+    color: $white;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 900;
+    font-size: $fs-big;
+    padding: .5em;
+    margin-bottom: .5em;
+}
+
+.detail-panel{
+    margin-top: -17.5em;
+    margin-bottom: 0em;
+    margin-left: -2em;
+    margin-right: 0em;
+    align-self: center;
+}
+
+.detail-panel__box{
+    padding: 1em;
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    color: $dark-gray;
+    margin: 1em 1em;
+    text-align: center;
+    background-color: #ffd88f;
+
+    @include tablet-screen {
+        text-align: left;
+    }
+}
+
+.detail-panel__name{
+    font-size: 1.4rem;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.detail-panel__count{
+    font-size: $fs-count;
+    color: $theme-primary;
+    text-align: center;
+}
+
+.graph {
+    background-color: $pure-white;
+    padding: 3em;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 1);
+    border-radius: 20px;
+    margin-right: -1em;
+    margin-top: -0.67em;
+    .graph__content{
+        canvas {
+           background-color: $pure-white;
+           box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0);
+           border-radius: 20px;
+           padding: 0em; 
+        }
+    }
+}
+
+.graph__dataload {
+    .MuiFormControl-root{
+        .MuiFormGroup-root {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+}
+
+.pagination {
+    margin-top: 1em;
+}
+.MuiFormLabel-root{
+    text-align:center;
+}
+// layout
+.container {
+    @include desktop-screen {
+        display: grid;
+        grid-template-columns: auto min-content max-content auto;
+        grid-template-rows: min-content max-content;
+        grid-template-areas: 
+        "header header header header"
+        ". data-panel graph .";
+        grid-gap: 2em;
+        width: 100vw;
+        height: 100vh;
+    }
+    header{
+        @include desktop-screen{
+            grid-area: header;
+        }
+    }
+    .detail-panel{
+        display: flex;
+        flex-direction: column;
+
+        @include tablet-screen {
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        @include desktop-screen{
+            grid-area: data-panel;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-panel__box {
+            @include tablet-screen {
+                width: 250px;
+            }
+
+            @include desktop-screen{
+                // margin: 0;
+                // justify-self: start;
+            }
+        }
+    }
+
+    .graph {
+
+        @include desktop-screen{
+            grid-area: graph;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            .graph__content {
+                canvas {
+                    max-width: 1430px;
+                    min-width: 1430px;
+                    max-height: 650px;
+                    min-height: 650px;
+                }
+            }
+        }
+    }
+}

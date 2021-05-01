@@ -1,0 +1,129 @@
+
+// ====================================================================================
+// =========== RESPONSIVE LAYOUT BOOTSTRAP 4.1=====================
+// ====================================================================================
+
+// Extra small devices (portrait phones, less than 576px)
+@mixin tiny-screen() {
+    @media (max-width: 575.98px) {
+        @content;
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@mixin phone-screen() {
+    @media only screen and (min-width: 576px) { 
+        @content;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin tablet-screen() {
+    @media only screen and (min-width: 768px) { 
+        @content;
+    }
+}
+
+//  Large devices (desktops, 992px and up)
+@mixin desktop-screen() {
+    @media only screen and (min-width: 992px) { 
+        @content;
+    }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@mixin large-screen() {
+    @media only screen and (min-width: 1200px) { 
+        @content;
+    }
+}
+
+// === CUSTOME ===
+@mixin custom-min($min) {
+    @media only screen and (min-width: $min) { 
+        @content;
+    }
+}
+
+@mixin custom-max($max) {
+    @media only screen and (max-width: $max) { 
+        @content;
+    }
+}
+
+
+// ====================================================================================
+// =========== COMMON STUFF =====================
+// ====================================================================================
+
+@mixin absolute-center() {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin flex-center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin hidden() {
+    display: none;
+}
+
+@mixin show($display) {
+    display: $display;
+}
+
+@mixin no-select() {
+    -khtml-user-select: none;
+    -webkit-touch-callout: none;
+    user-select: none;
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+      @content;
+    }
+    @-moz-keyframes #{$name} {
+      @content;
+    }
+    @keyframes #{$name} {
+      @content;
+    }
+ }
+
+@mixin abs-position ($top, $right, $bottom, $left) {
+    position: absolute; 
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+
+@mixin cover-background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+@mixin fade($type) {
+    @if $type== "hide" {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility .5s, opacity 1s;
+    } @else if $type== "show" {
+        visibility: visible;
+        opacity: 1;
+        transition: visibility .5s, opacity 1s;
+    }
+}
+
+@mixin box-shadow($shadows...) {
+    box-shadow: $shadows;
+    -webkit-box-shadow: $shadows;
+    -moz-box-shadow: $shadows;
+}
+  
