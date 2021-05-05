@@ -1,12 +1,7 @@
 import React from 'react'
 import { Bar } from "react-chartjs-2";
-import {useSelector} from 'react-redux';
-import CircularProgress from '@material-ui/core/CircularProgress'
 
 function Graph({data_obj}) {
-  
-
-  const isloading = useSelector(state => state.Reducer.isLoading);
 
 const data = {
   labels: Object.keys(data_obj),
@@ -51,7 +46,7 @@ const data = {
 
     return (
       <>
-        {!isloading ? bar : <CircularProgress />}
+        {bar}
       </>
     )
 }

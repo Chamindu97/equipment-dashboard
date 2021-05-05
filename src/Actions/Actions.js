@@ -10,26 +10,28 @@ export const UPDATE_VALUE = "UPDATE_VALUE";
 export const UPDATE_PAGE = "UPDATE_PAGE";
 export const RESET_PAGE = "RESET_PAGE";
 
+export var limit = false;
 
-export const getdata = (dispatch, max, last) => {
-
-	dispatch({
-		type: LOADING_DATA
-	})
-
-  fetch(`/ivivdata/?max=${max}&last=${last}`)
-	.then(res => res.json())
-	.then(data => {
+export async function getdata (dispatch, max, last){
 		dispatch({
-			type: GET_DATA,
-			payload: data
+			type: LOADING_DATA
 		})
-	})
-	.catch(err => console.log(err))
+						
+		await fetch(`/ivivdata/?max=${max}&last=${last}`)
+			.then(res => res.json())
+			.then(data => {
+				if(!Object.keys(data).length){
+					limit = true; 	
+				}
+				dispatch({
+					type: GET_DATA,
+					payload: data
+				})
+			})
+			.catch(err => console.log(err))
+	}
 
-}
-
-export const dataLoaded = (dispatch) => {
+export function dataLoaded (dispatch) {
 	dispatch({
 		type: DATA_LOADED
 	})

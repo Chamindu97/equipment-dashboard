@@ -3,26 +3,34 @@ import Graph from '../Components/Graph';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import '../CSS/style.scss'
 import { useDispatch, useSelector } from 'react-redux';
-import {getdata, dataLoaded} from '../Actions/Actions';
 import CountUp from 'react-countup';
+import {getdata,dataLoaded, limit} from '../Actions/Actions'	
 
 function Dashboard() {
 
 	const dispatch = useDispatch();
 	const rootstate = useSelector(state => state);
 
-	const max_value = 90
-	const total_objs = 300;
+	const max_value = 90;
+
+	async function wrapper (max_value, dispatch){
+
+		for ( let last_index = 0 ; last_index < Infinity; last_index+=max_value) {
+
+			if(limit){
+				dataLoaded(dispatch);
+				break;
+			}else{
+				await getdata(dispatch, max_value, last_index);
+			}			
+		}
+	}
 
 	useEffect(()=>{
 
-		for (let last_index = 0; last_index < total_objs; last_index+=max_value) {
-			getdata(dispatch, max_value, last_index);
-		}
+		wrapper(max_value, dispatch);
 
-		dataLoaded(dispatch);
-		
-	}, [dispatch]);
+	},[dispatch]);
 
 	let equipement_type = {}
 	let operationa_state = {
@@ -57,14 +65,14 @@ function Dashboard() {
 					<h2 className="detail-panel__name">
 						Operational
 					</h2>
-					<p className="detail-panel__count">{rootstate.Reducer.isloading ? <CircularProgress /> : <CountUp end={operationa_state['operational']} duration={2}/>}</p>
+					<p className="detail-panel__count">{rootstate.Reducer.isloading ? <CircularProgress /> : <CountUp end={operationa_state['operational']} duration={3}/>}</p>
 				</div> {/* !detail-panel__box*/}
 
 				<div className="detail-panel__box">
 					<h2 className="detail-panel__name">
 						Non-Operational
 					</h2>
-					<p className="detail-panel__count">{rootstate.Reducer.isloading ? <CircularProgress /> : <CountUp end={operationa_state['non-operational']} duration={2} />}</p>
+					<p className="detail-panel__count">{rootstate.Reducer.isloading ? <CircularProgress /> : <CountUp end={operationa_state['non-operational']} duration={3} />}</p>
 				</div> {/* !detail-panel__box*/}
 			</section>{/* !detail-panel*/}
 
